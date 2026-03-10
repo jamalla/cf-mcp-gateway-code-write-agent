@@ -1,5 +1,5 @@
 {
-  "name": "cf-mcp-gateway-code-write-agant",
+  "name": "cf-mcp-gateway-code-write-agent",
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@10.6.3",
