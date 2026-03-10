@@ -1,5 +1,8 @@
 {
   "name": "mcp-gateway",
   "main": "src/index.ts",
-  "compatibility_date": "2026-03-10"
+  "compatibility_date": "2026-03-10",
+  "vars": {
+    "REMOTE_TOOLS_BASE_URL": "http://127.0.0.1:8788"
+  }
 }

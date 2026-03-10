@@ -12,7 +12,11 @@ import {
 } from '@repo/shared-auth';
 import { buildMasterOpenApiSpec } from '@repo/shared-openapi';
 
-const app = new Hono();
+type Bindings = {
+  REMOTE_TOOLS_BASE_URL: string;
+};
+
+const app = new Hono<{ Bindings: Bindings }>();
 
 function buildTraceId(): string {
   return `trace_${crypto.randomUUID()}`;
@@ -78,7 +82,10 @@ app.get('/specs/master', async (c) => {
     const verified = await verifyAgentSessionToken(token);
     const agentId = String(verified.payload.sub);
 
-    const masterSpec = buildMasterOpenApiSpec();
+    const remoteToolsBaseUrl = c.env.REMOTE_TOOLS_BASE_URL || 'http://127.0.0.1:8788';
+    const masterSpec = buildMasterOpenApiSpec({
+      remoteToolsBaseUrl,
+    });
     const specText = JSON.stringify(masterSpec);
     const specHashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(specText));
     const specHashArray = Array.from(new Uint8Array(specHashBuffer));
@@ -113,7 +120,7 @@ app.get('/specs/master', async (c) => {
         client_visible_scopes: ['customer:read', 'order:read'],
       },
       token_exchange_endpoint: '/tokens/tool-access',
-      allowed_remote_hosts: ['remote-tools.example.workers.dev'],
+      allowed_remote_hosts: [new URL(remoteToolsBaseUrl).host],
       execution_constraints: {
         max_calls: 5,
         timeout_ms: 8000,

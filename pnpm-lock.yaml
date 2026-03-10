@@ -88,6 +88,15 @@ importers:
 
   apps/remote-tools-worker:
     dependencies:
+      '@hono/zod-validator':
+        specifier: ^0.4.3
+        version: 0.4.3(hono@4.12.6)(zod@3.25.76)
+      '@repo/shared-auth':
+        specifier: workspace:*
+        version: link:../../packages/shared-auth
+      '@repo/shared-schemas':
+        specifier: workspace:*
+        version: link:../../packages/shared-schemas
       hono:
         specifier: ^4.7.4
         version: 4.12.6
@@ -448,6 +457,12 @@ packages:
   '@eslint/plugin-kit@0.4.1':
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@hono/zod-validator@0.4.3':
+    resolution: {integrity: sha512-xIgMYXDyJ4Hj6ekm9T9Y27s080Nl9NXHcJkOvkXPhubOLj8hZkOL8pDnnXfvCf5xEE8Q4oMFenQUZZREUY2gqQ==}
+    peerDependencies:
+      hono: '>=3.9.0'
+      zod: ^3.19.1
 
   '@hono/zod-validator@0.7.6':
     resolution: {integrity: sha512-Io1B6d011Gj1KknV4rXYz4le5+5EubcWEU/speUjuw9XMMIaP3n78yXLhjd2A3PXaXaUwEAluOiAyLqhBEJgsw==}
@@ -2627,6 +2642,11 @@ snapshots:
     dependencies:
       '@eslint/core': 0.17.0
       levn: 0.4.1
+
+  '@hono/zod-validator@0.4.3(hono@4.12.6)(zod@3.25.76)':
+    dependencies:
+      hono: 4.12.6
+      zod: 3.25.76
 
   '@hono/zod-validator@0.7.6(hono@4.12.6)(zod@3.25.76)':
     dependencies:

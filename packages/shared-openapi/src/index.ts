@@ -1,6 +1,12 @@
 export const OPENAPI_VERSION = '3.1.0';
 
-export function buildMasterOpenApiSpec() {
+export type BuildMasterOpenApiSpecOptions = {
+	remoteToolsBaseUrl: string;
+};
+
+export function buildMasterOpenApiSpec(options: BuildMasterOpenApiSpecOptions) {
+	const { remoteToolsBaseUrl } = options;
+
 	return {
 		openapi: OPENAPI_VERSION,
 		info: {
@@ -11,7 +17,7 @@ export function buildMasterOpenApiSpec() {
 		},
 		servers: [
 			{
-				url: 'https://remote-tools.example.workers.dev',
+				url: remoteToolsBaseUrl,
 			},
 		],
 		paths: {
