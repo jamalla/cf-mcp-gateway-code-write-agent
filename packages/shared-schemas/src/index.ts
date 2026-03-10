@@ -109,3 +109,74 @@ export const ErrorResponseSchema = z.object({
 });
 
 export type ErrorResponse = z.infer<typeof ErrorResponseSchema>;
+
+/**
+ * Remote tool request / response schemas
+ */
+
+export const CustomerLookupRequestSchema = z.object({
+  email: z.string().email(),
+});
+
+export const CustomerLookupResponseSchema = z.object({
+  ok: z.literal(true),
+  data: z.object({
+    customer_id: z.string(),
+    email: z.string().email(),
+    name: z.string(),
+  }),
+  meta: z.object({
+    procedure: z.literal('customer.lookup'),
+    trace_id: TraceIdSchema.optional(),
+  }),
+});
+
+export type CustomerLookupRequest = z.infer<typeof CustomerLookupRequestSchema>;
+export type CustomerLookupResponse = z.infer<typeof CustomerLookupResponseSchema>;
+
+export const OrderGetLatestByCustomerRequestSchema = z.object({
+  customer_id: z.string().min(1),
+});
+
+export const OrderGetLatestByCustomerResponseSchema = z.object({
+  ok: z.literal(true),
+  data: z.object({
+    order_id: z.string(),
+    customer_id: z.string(),
+    total: z.number(),
+    currency: z.string(),
+    status: z.string(),
+  }),
+  meta: z.object({
+    procedure: z.literal('order.getLatestByCustomer'),
+    trace_id: TraceIdSchema.optional(),
+  }),
+});
+
+export type OrderGetLatestByCustomerRequest = z.infer<
+  typeof OrderGetLatestByCustomerRequestSchema
+>;
+export type OrderGetLatestByCustomerResponse = z.infer<
+  typeof OrderGetLatestByCustomerResponseSchema
+>;
+
+export const ReportSalesSummaryRequestSchema = z.object({
+  range: z.string().min(1),
+});
+
+export const ReportSalesSummaryResponseSchema = z.object({
+  ok: z.literal(true),
+  data: z.object({
+    range: z.string(),
+    gross_sales: z.number(),
+    orders_count: z.number(),
+    currency: z.string(),
+  }),
+  meta: z.object({
+    procedure: z.literal('report.salesSummary'),
+    trace_id: TraceIdSchema.optional(),
+  }),
+});
+
+export type ReportSalesSummaryRequest = z.infer<typeof ReportSalesSummaryRequestSchema>;
+export type ReportSalesSummaryResponse = z.infer<typeof ReportSalesSummaryResponseSchema>;

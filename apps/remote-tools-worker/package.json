@@ -10,6 +10,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/shared-auth": "workspace:*",
+    "@repo/shared-schemas": "workspace:*",
+    "@hono/zod-validator": "^0.4.3",
     "hono": "^4.7.4",
     "jose": "^5.9.6",
     "zod": "^3.24.2"
